@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <link rel="manifest" href="manifest.json"
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة زفاف ملكية فسفورية</title>
-    
-    <!-- الكود الثاني (التنسيق والألوان) يوضع هنا -->
+    <title>Royal Neon Wedding | Creative 2026</title>
     <style>
         :root {
-            --neon-green: #39FF14; 
+            --neon-green: #39FF14;
             --cyber-gold: #FFD700;
-            --dark-bg: #050505; 
-            --neon-shadow: 0 0 10px #39FF14, 0 0 20px #39FF14;
+            --dark-bg: #020202;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         body {
             background-color: var(--dark-bg);
-            color: white;
+            color: #fff;
             font-family: sans-serif;
             margin: 0;
             display: flex;
@@ -26,68 +23,55 @@
             min-height: 100vh;
         }
 
-        .container {
+        .card {
             width: 90%;
-            max-width: 450px;
-            padding: 30px;
-            border: 1px solid var(--neon-green);
-            box-shadow: var(--neon-shadow);
-            background: rgba(0, 0, 0, 0.9);
-            border-radius: 20px;
+            max-width: 420px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            border-radius: 30px;
+            padding: 40px 25px;
             text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        h1 {
-            color: var(--cyber-gold);
-            text-shadow: 0 0 15px var(--cyber-gold);
-            font-size: 32px;
-        }
-
-        .names {
-            font-size: 32px;
-            color: var(--neon-green);
-            text-shadow: var(--neon-shadow);
-            padding: 20px 0;
-            margin: 20px 0;
-            border-top: 1px dashed var(--neon-green);
-            border-bottom: 1px dashed var(--neon-green);
-        }
-
-        p {
-            font-size: 22px; /* الحجم المفضل لديك للقراءة */
-            color: #f0f0f0;
-        }
-
-        .btn {
-            display: block;
-            margin: 15px auto;
-            padding: 15px;
-            background: transparent;
-            border: 2px solid var(--neon-green);
-            color: var(--neon-green);
-            text-decoration: none;
-            border-radius: 10px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: inset 0 0 5px var(--neon-green);
-        }
+        .names { font-size: 35px; color: var(--neon-green); margin: 25px 0; font-weight: bold; text-shadow: 0 0 15px var(--neon-green); }
+        .details { font-size: 22px; line-height: 1.8; margin-bottom: 20px; color: #ddd; }
+        .btn { display: block; margin: 15px 0; padding: 15px; border-radius: 15px; text-decoration: none; font-size: 20px; font-weight: bold; color: #000; background: var(--neon-green); }
+        
+        #adminPanel { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; padding: 20px; z-index: 999; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid var(--neon-green); color: #fff; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>دعوة زفاف ملكية</h1>
-        
-        <div class="names">
-            أحمد & سارة
-        </div>
-
-        <p>يتشرفون بدعوتكم لحفل الزفاف</p>
-        <p>التاريخ: 25 يونيو 2026</p>
-        
+    <div class="card">
+        <h1>Wedding Invitation</h1>
+        <div class="names" id="displayNames">أحمد & سارة</div>
+        <div class="details" id="displayDate">📅 2026-06-25 <br> 📍 فندق الفورسيزونز</div>
         <a href="#" class="btn">📍 موقع القاعة (GPS)</a>
-        <a href="#" class="btn" style="border-color: var(--cyber-gold); color: var(--cyber-gold); box-shadow: inset 0 0 5px var(--cyber-gold);">✅ تأكيد الحضور</a>
     </div>
 
+    <!-- زر الترس للتحكم -->
+    <div onclick="document.getElementById('adminPanel').style.display='block'" style="position:fixed; bottom:20px; right:20px; cursor:pointer; color:var(--neon-green);">⚙️ إعدادات</div>
+
+    <!-- لوحة التحكم -->
+    <div id="adminPanel">
+        <h2 style="color:var(--cyber-gold)">تعديل الدعوة</h2>
+        <input type="text" id="nameInput" placeholder="أسماء العروسين">
+        <input type="date" id="dateInput">
+        <button onclick="updateData()" style="width:100%; padding:15px; background:var(--neon-green); border:none; font-weight:bold;">حفظ التغييرات</button>
+        <button onclick="document.getElementById('adminPanel').style.display='none'" style="width:100%; padding:15px; background:transparent; color:red; border:none; margin-top:10px;">إغلاق</button>
+    </div>
+
+    <script>
+        function updateData() {
+            const name = document.getElementById('nameInput').value;
+            const date = document.getElementById('dateInput').value;
+            if(name) document.getElementById('displayNames').innerText = name;
+            if(date) document.getElementById('displayDate').innerHTML = `📅 ${date} <br> 📍 فندق الفورسيزونز`;
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
