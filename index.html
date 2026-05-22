@@ -11,79 +11,138 @@
             --dark-bg: #050505;
         }
 
-        body { background-color: var(--dark-bg); color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        body { 
+            background-color: var(--dark-bg); 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0; 
+        }
         
         .card {
-            width: 90%; max-width: 420px;
+            width: 90%; 
+            max-width: 420px;
             background: rgba(255,255,255,0.02);
             backdrop-filter: blur(15px);
-            border: 3px solid var(--royal-gold) !important; /* إطار أصفر قسري */
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.4) !important; /* توهج أصفر */
+            /* الإطار الأصفر الذهبي المتوهج */
+            border: 3px solid var(--royal-gold) !important;
+            box-shadow: 0 0 20px var(--royal-gold), inset 0 0 10px var(--royal-gold) !important;
             border-radius: 30px;
             padding: 40px;
             text-align: center;
         }
 
-        h1 { color: var(--royal-gold) !important; }
+        h1 { color: var(--royal-gold) !important; font-size: 24px; margin-bottom: 10px; }
         
         .names { 
-            font-size: 38px; font-weight: bold; margin: 20px 0; 
+            font-size: 38px; 
+            font-weight: bold; 
+            margin: 20px 0; 
             color: var(--neon-blue) !important; 
             text-shadow: 0 0 15px var(--neon-blue) !important; 
         }
         
         .details { 
-            font-size: 22px; line-height: 2; margin-bottom: 25px; 
+            font-size: 22px; 
+            line-height: 2; 
+            margin-bottom: 25px; 
             color: var(--neon-blue) !important; 
         }
         
         .btn { 
-            display: block; padding: 15px; margin: 15px 0; border-radius: 15px; 
-            text-decoration: none; font-weight: bold; 
+            display: block; 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 15px; 
+            text-decoration: none; 
+            font-weight: bold; 
             border: 2px solid var(--neon-blue) !important; 
             color: var(--neon-blue) !important; 
+            transition: 0.3s;
         }
+
+        .btn:active { background: var(--neon-blue); color: black; }
         
-        #adminPanel { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; padding: 30px; z-index: 999; }
+        #adminPanel { 
+            display:none; 
+            position: fixed; 
+            top:0; 
+            left:0; 
+            width:100%; 
+            height:100%; 
+            background: rgba(0,0,0,0.95); 
+            padding: 30px; 
+            z-index: 999; 
+            box-sizing: border-box;
+        }
         
         input { 
-            width: 100%; padding: 15px; margin: 10px 0; background: #111; 
-            border: 2px solid var(--royal-gold) !important; color: #fff; border-radius: 10px; 
+            width: 100%; 
+            padding: 15px; 
+            margin: 10px 0; 
+            background: #111; 
+            border: 2px solid var(--royal-gold) !important; 
+            color: #fff; 
+            border-radius: 10px; 
+            box-sizing: border-box;
         }
-    </style>.card {
-    border: 3px solid #FFD700 !important;
-    box-shadow: 0 0 20px #FFD700, inset 0 0 10px #FFD700 !important;
-}
-    
+
+        .save-btn {
+            width: 100%; 
+            padding: 15px; 
+            background: var(--royal-gold); 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            color: black; 
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>دعوة زفاف</h1>
+        <h1>دعوة زفاف ملكية</h1>
         <div class="names" id="displayNames">أحمد & سارة</div>
         <div class="details">
             📅 <span id="dateText">2026-06-25</span> <br> 
-            📍 <span id="hallText">قاعة الأفراح</span>
+            📍 <span id="hallText">قاعة الأفراح الملكية</span>
         </div>
         <a href="#" class="btn">📍 موقع القاعة (GPS)</a>
     </div>
 
-    <div onclick="document.getElementById('adminPanel').style.display='block'" style="position:fixed; bottom:20px; right:20px; cursor:pointer; color:var(--royal-gold);">⚙️ إعدادات</div>
+    <!-- زر الترس للإعدادات -->
+    <div onclick="document.getElementById('adminPanel').style.display='block'" 
+         style="position:fixed; bottom:20px; right:20px; cursor:pointer; color:var(--royal-gold); font-size: 30px; background: rgba(0,0,0,0.5); border-radius: 50%; padding: 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+         ⚙️
+    </div>
 
+    <!-- لوحة التحكم -->
     <div id="adminPanel">
-        <h2 style="color:var(--royal-gold)">تعديل البيانات</h2>
+        <h2 style="color:var(--royal-gold)">تعديل بيانات المناسبة</h2>
         <input type="text" id="nameInput" placeholder="أسماء العروسين">
         <input type="date" id="dateInput">
         <input type="text" id="hallInput" placeholder="اسم القاعة في مصر">
         
-        <button onclick="updateData()" style="width:100%; padding:15px; background:var(--royal-gold); border:none; border-radius:10px; font-weight:bold; color:black;">حفظ التغييرات</button>
+        <button class="save-btn" onclick="updateData()">حفظ التغييرات</button>
+        <button onclick="document.getElementById('adminPanel').style.display='none'" 
+                style="width:100%; padding:10px; background:transparent; color:red; border:none; margin-top:15px; cursor:pointer;">إلغاء</button>
     </div>
 
     <script>
         function updateData() {
-            document.getElementById('displayNames').innerText = document.getElementById('nameInput').value || 'أحمد & سارة';
-            document.getElementById('dateText').innerText = document.getElementById('dateInput').value || '2026-06-25';
-            document.getElementById('hallText').innerText = document.getElementById('hallInput').value || 'قاعة الأفراح';
+            const name = document.getElementById('nameInput').value;
+            const date = document.getElementById('dateInput').value;
+            const hall = document.getElementById('hallInput').value;
+
+            if(name) document.getElementById('displayNames').innerText = name;
+            if(date) document.getElementById('dateText').innerText = date;
+            if(hall) document.getElementById('hallText').innerText = hall;
+
             document.getElementById('adminPanel').style.display = 'none';
         }
     </script>
