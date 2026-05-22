@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دعوة زفاف فاخرة</title>
+    <title>دعوة زفاف فاخرة | Creative 2026</title>
     <style>
         :root {
-            --deep-blue: #1a2a6c;    /* أزرق غامق (نص) */
-            --gold-line: #c5a059;    /* ذهبي هادئ (إطار) */
-            --bg-color: #fdfdfd;     /* أبيض دافئ */
+            --deep-blue: #1a2a6c;    /* أزرق غامق ملكي */
+            --gold-line: #c5a059;    /* ذهبي كلاسيكي */
+            --lemon-glow: #faff00;   /* أصفر ليموني فاتح جداً */
+            --bg-color: #fcfcfc;
         }
 
         body { 
@@ -20,32 +21,41 @@
         }
         
         .card {
-            width: 90%; max-width: 420px;
+            width: 85%; max-width: 400px;
             background: #ffffff;
-            /* إطار ذهبي رفيع جداً */
-            border: 1px solid var(--gold-line);
-            border-radius: 5px; /* حواف حادة قليلاً لإعطاء طابع كلاسيكي */
-            padding: 60px 30px;
+            /* الإطار الليموني الخارجي الرفيع جداً */
+            border: 1px solid var(--lemon-glow);
+            border-radius: 10px;
+            padding: 50px 30px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            /* إضافة حاشية داخلية بسيطة لزيادة الفخامة */
-            outline: 10px solid #ffffff;
-            outline-offset: -15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            position: relative;
         }
 
-        h1 { color: var(--gold-line); font-size: 18px; font-weight: 300; letter-spacing: 6px; text-transform: uppercase; }
-        .names { font-size: 32px; font-weight: 600; margin: 25px 0; color: var(--deep-blue); }
-        .details { font-size: 17px; line-height: 2.2; margin-bottom: 30px; color: #444; }
+        /* الإطار الذهبي الداخلي الرفيع جداً */
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid var(--gold-line);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        h1 { color: var(--gold-line); font-size: 16px; font-weight: 300; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 10px; }
+        .names { font-size: 34px; font-weight: bold; margin: 20px 0; color: var(--deep-blue); }
+        .details { font-size: 19px; line-height: 2.2; margin-bottom: 25px; color: #444; }
         
         .btn { 
-            display: block; padding: 12px; border: 1px solid var(--deep-blue);
-            text-decoration: none; font-weight: 400; font-size: 14px;
-            color: var(--deep-blue); transition: 0.3s; width: 60%; margin: 0 auto;
+            display: block; padding: 12px; border: 1.5px solid var(--deep-blue);
+            text-decoration: none; font-weight: bold; font-size: 15px;
+            color: var(--deep-blue); transition: 0.3s; width: 70%; margin: 0 auto;
+            position: relative; z-index: 2;
         }
 
-        #adminPanel { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: #fff; padding: 30px; z-index: 999; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 0; box-sizing: border-box; }
-        .save-btn { width: 100%; padding: 12px; background: var(--deep-blue); border: none; color: white; cursor: pointer; }
+        #adminPanel { display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: #fff; padding: 30px; z-index: 999; box-sizing: border-box; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; box-sizing: border-box; }
+        .save-btn { width: 100%; padding: 15px; background: var(--deep-blue); border: none; color: white; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -57,17 +67,19 @@
             📅 <span id="dateText">2026-06-25</span> <br> 
             📍 <span id="hallText">قاعة الأفراح</span>
         </div>
-        <a href="#" class="btn">موقع القاعة</a>
+        <a href="#" class="btn">📍 موقع القاعة</a>
     </div>
 
-    <div onclick="document.getElementById('adminPanel').style.display='block'" style="position:fixed; bottom:20px; right:20px; cursor:pointer; color:#ccc;">⚙️</div>
+    <!-- زر الإعدادات الهادئ -->
+    <div onclick="document.getElementById('adminPanel').style.display='block'" style="position:fixed; bottom:20px; right:20px; cursor:pointer; color:#ddd; font-size: 20px;">⚙️</div>
 
     <div id="adminPanel">
         <h2 style="color:var(--deep-blue)">تعديل البيانات</h2>
         <input type="text" id="nameInput" placeholder="أسماء العروسين">
         <input type="date" id="dateInput">
         <input type="text" id="hallInput" placeholder="اسم القاعة">
-        <button class="save-btn" onclick="updateData()">حفظ</button>
+        <button class="save-btn" onclick="updateData()">حفظ البيانات</button>
+        <button onclick="document.getElementById('adminPanel').style.display='none'" style="width:100%; background:transparent; color:red; border:none; margin-top:15px; cursor:pointer;">إلغاء</button>
     </div>
 
     <script>
